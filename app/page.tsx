@@ -185,13 +185,17 @@ function Page() {
               </motion.div>
             ))}
           </div>
+          
         </div>
       </section>
 
 
 
-      <section className="py-6 md:py-10">
-        <div className="container mx-auto px-4 sm:px-6 py-8 md:p-10 bg-[#D0DEFF] rounded-3xl md:rounded-[50px]">
+      <section className="py-6 md:py-10 relative mt-[150px]">
+        <span className="hidden sm:block uppercase text-[180px] md:text-[300px] lg:text-[450px] leading-none font-bold absolute top-[0%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[-1] textMonks">
+            study
+          </span>
+        <div className="container mx-auto px-4 sm:px-6 py-8 md:p-10 bg-[#D0DEFF] rounded-3xl md:rounded-[50px] z-20">
           <motion.h2
             className="text-[#001F3F] text-center text-2xl md:text-[30px] font-[Gilroy] font-bold mb-3"
             initial={{ opacity: 0, y: 20 }}
@@ -445,7 +449,7 @@ function Page() {
       <section className="py-8 md:py-10 mt-0 md:mt-[150px] relative">
         <div className="container mx-auto px-4 sm:px-6">
           <span className="hidden sm:block uppercase text-[180px] md:text-[300px] lg:text-[450px] leading-none font-bold absolute top-[0%] left-[50%] translate-x-[-50%] translate-y-[-10%] z-[1] textMonks">
-            monks
+            stydy
           </span>
 
           <div className="relative z-[2] top-8 sm:top-16 left-0">
@@ -522,7 +526,7 @@ function Page() {
                         <span>Schedule Your Free <br /> Clarity Session</span>
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-[#fff] border border-[#001F3F] text-black rounded-2xl w-full">
+                    <DialogContent className="bg-[#fff] text-black w-full">
                     <VisuallyHidden>
                       <DialogHeader className="border-b border-[#001F3F] px-4 sm:px-6">
                         <DialogTitle className="text-lg sm:text-xl font-bold mb-3">

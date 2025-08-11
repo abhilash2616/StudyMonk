@@ -152,6 +152,7 @@
 
 .textMonks {
   background: -webkit-linear-gradient(#c9c9c93a, #ffffff00);
+  /* background: -webkit-linear-gradient(#f50000bb, #850e0e); */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
