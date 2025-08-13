@@ -300,15 +300,15 @@ function Page() {
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="bg-[#fff] text-black w-full">
-                      <VisuallyHidden>
-                        <DialogHeader className="border-b border-[#001F3F] px-4 sm:px-6">
-                          <DialogTitle className="text-lg sm:text-xl font-bold mb-3">
-                            Popup Form
-                          </DialogTitle>
-                        </DialogHeader>
-                      </VisuallyHidden>
-                      <PopUpForm />
-                    </DialogContent>
+                  <VisuallyHidden>
+                    <DialogHeader className="border-b border-[#001F3F] px-4 sm:px-6">
+                      <DialogTitle className="text-lg sm:text-xl font-bold mb-3">
+                        Popup Form
+                      </DialogTitle>
+                    </DialogHeader>
+                  </VisuallyHidden>
+                  <PopUpForm />
+                </DialogContent>
               </Dialog>
             </div>
           </motion.div>
