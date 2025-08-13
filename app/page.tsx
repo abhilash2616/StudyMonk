@@ -38,15 +38,28 @@ const focus = [
 const voice = [
   {
     info: "The Cambridge Compass",
-    description: "Our proprietary Cambridge aligned framework is designed to provide purpose, direction, and clarity at every stage of your child's academic journey. ",
+    description: [
+      "Our proprietary",
+      "Cambridge aligned framework",
+      "is designed to provide purpose, direction, and clarity at every stage of your child's academic journey",
+    ],
   },
   {
     info: "The Cambridge Code",
-    description: "Get our proprietary Curated content, designed for each Strand, Unit & Objective meticulously offering a clear and coherent pathway to success.",
+    description: [
+      "Get our proprietary",
+      "Curated content,",
+      "designed for each Strand, Unit & Objective meticulously offering a clear and coherent pathway to success.",
+    ],
   },
   {
     info: "The Mastery Method",
-    description: "Face your exams with unshakable confidence, powered by our Targeted Progression Test Prep and Comprehensive Checkpoint Prep.",
+    description: [
+      "Face your exams with unshakable confidence, powered by our Targeted",
+      "Progression Test Prep",
+      "and Comprehensive",
+      "Checkpoint Prep.",
+    ],
   },
 ];
 const stage = [
@@ -169,7 +182,7 @@ function Page() {
           </div>
 
           <div className="flex flex-col sm:flex-row flex-wrap justify-between w-full mt-8 gap-4 md:gap-6">
-            {voice.map((voice, Idx) => (
+            {voice.map((voiceItem, Idx) => (
               <motion.div
                 key={Idx}
                 className="w-full sm:w-[48%] md:w-[30%] mb-4 last:mb-0"
@@ -179,13 +192,27 @@ function Page() {
                 viewport={{ once: true }}
               >
                 <div className="p-4 transition-colors duration-300 hover:bg-[#EEF7D3] border border-gray-200 rounded shadow-sm h-full">
-                  <h4 className="text-[#001F3F] font-semibold text-base md:text-[17px] mb-1">{voice.info}</h4>
-                  <p className="text-xs md:text-[14px] text-[#484848]">{voice.description}</p>
+                  <h4 className="text-[#001F3F] font-semibold text-base md:text-[17px] mb-1">
+                    {voiceItem.info}
+                  </h4>
+                  <p className="text-xs md:text-[14px] text-[#484848]">
+                    {voiceItem.description.map((line, i) => (
+                      <span
+                        key={i}
+                        className={
+                          i === 1 || i === 3
+                            ? "font-bold text-[#001F3F]"
+                            : ""
+                        }
+                      >
+                        {line}{" "}
+                      </span>
+                    ))}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
-          
         </div>
       </section>
 
@@ -193,8 +220,8 @@ function Page() {
 
       <section className="py-6 md:py-10 relative mt-[150px]">
         <span className="hidden sm:block uppercase text-[180px] md:text-[300px] lg:text-[450px] leading-none font-bold absolute top-[0%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[-1] textMonks">
-            study
-          </span>
+          study
+        </span>
         <div className="container mx-auto px-4 sm:px-6 py-8 md:p-10 bg-[#D0DEFF] rounded-3xl md:rounded-[50px] z-20">
           <motion.h2
             className="text-[#001F3F] text-center text-2xl md:text-[30px] font-[Gilroy] font-bold mb-3"
@@ -222,9 +249,7 @@ function Page() {
             {stage.map((stage, Index) => (
               <motion.div
                 key={Index}
-                className="bg-white px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8 rounded-br-3xl md:rounded-br-[50px] w-full sm:w-[80%] md:w-[40%] lg:w-[30%]
-           transition-all duration-300 ease-in-out
-           hover:shadow-2xl hover:bg-[#F6F9FF] hover:scale-[1.01]"
+                className="bg-white px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8 rounded-br-3xl md:rounded-br-[50px] w-full sm:w-[80%] md:w-[50%] lg:w-[40%] transition-all duration-300 ease-in-out hover:shadow-2xl hover:bg-[#F6F9FF] hover:scale-[1.01]"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: Index * 0.2, duration: 0.6, ease: "easeOut" }}
@@ -274,17 +299,16 @@ function Page() {
                     <span>Book a consultation</span>
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="bg-[#fff] border border-[#001F3F] text-black rounded-2xl w-[90%] max-w-[800px]">
-                  <DialogHeader className="border-b border-[#001F3F] px-4 sm:px-6">
-                    <DialogTitle className="text-xl font-bold mb-3">
-                      Popup form
-                    </DialogTitle>
-                  </DialogHeader>
-
-                  <div className="py-6 px-4 sm:px-6">
-                    <PopUpForm />
-                  </div>
-                </DialogContent>
+                <DialogContent className="bg-[#fff] text-black w-full">
+                      <VisuallyHidden>
+                        <DialogHeader className="border-b border-[#001F3F] px-4 sm:px-6">
+                          <DialogTitle className="text-lg sm:text-xl font-bold mb-3">
+                            Popup Form
+                          </DialogTitle>
+                        </DialogHeader>
+                      </VisuallyHidden>
+                      <PopUpForm />
+                    </DialogContent>
               </Dialog>
             </div>
           </motion.div>
@@ -493,15 +517,12 @@ function Page() {
       <section className="py-8 md:py-10">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-6 h-full">
-            {/* FAQ Section - Full width on mobile, 48% on desktop */}
             <div className="w-full md:w-[48%] h-full">
               <h2 className="text-[#001F3F] text-2xl md:text-[28px] font-semibold mb-4 md:mb-5">
                 Frequently Asked Questions
               </h2>
               <BottomAccordion />
             </div>
-
-            {/* CTA Section - Full width on mobile, 48% on desktop */}
             <div className="w-full md:w-[48%] h-full flex justify-center items-center">
               <div className="bg-gradient-to-t from-[#E4FDFF] to-[#EBF2FF] p-4 sm:p-6 rounded-2xl md:rounded-[30px] flex flex-col gap-4 sm:gap-6 h-full text-center md:text-left w-full">
                 <h2 className="text-[#001F3F] text-xl sm:text-2xl md:text-[28px] font-semibold">
@@ -527,14 +548,14 @@ function Page() {
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="bg-[#fff] text-black w-full">
-                    <VisuallyHidden>
-                      <DialogHeader className="border-b border-[#001F3F] px-4 sm:px-6">
-                        <DialogTitle className="text-lg sm:text-xl font-bold mb-3">
-                          Popup Form
-                        </DialogTitle>
-                      </DialogHeader>
+                      <VisuallyHidden>
+                        <DialogHeader className="border-b border-[#001F3F] px-4 sm:px-6">
+                          <DialogTitle className="text-lg sm:text-xl font-bold mb-3">
+                            Popup Form
+                          </DialogTitle>
+                        </DialogHeader>
                       </VisuallyHidden>
-                        <PopUpForm />
+                      <PopUpForm />
                     </DialogContent>
                   </Dialog>
                 </div>

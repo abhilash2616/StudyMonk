@@ -19,8 +19,8 @@ const links = [
   {
     label: "The Cambridge Pathway",
     subLinks: [
-      { label: "Early Years", href: "/the-cambridge-pathway/early-years" },
-      { label: "Primary", href: "/the-cambridge-pathway/primary" },
+      { label: "Cambridge Primary", href: "/the-cambridge-pathway/cambridge-primary" },
+      { label: "Cambridge Secondary", href: "/the-cambridge-pathway/cambridge-secondary" },
     ],
   },
   { label: "Our Mentors", href: "/our-mentors" },

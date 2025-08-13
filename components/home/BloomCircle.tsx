@@ -1,94 +1,106 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useMemo } from "react";
 
-const BloomCircle = () => {
-  const levels = [
-    "Remember",
-    "Understand",
-    "Evaluate",
-    "Analyze",
-    "Create",
-    "Apply",
-  ];
+type RingType =
+  | "create"
+  | "evaluate"
+  | "analyze"
+  | "apply"
+  | "understand"
+  | "remember";
 
-  return (
-    <div className="flex items-center justify-center p-4">
-      <div className="relative w-96 h-96">
-        {levels.map((text, index) => {
-          const size = 100 + index * 50;
-          const delay = index * 0.15;
-          const radius = size / 2;
-
-          return (
-            <div
-              key={text}
-              className="absolute inset-0 flex items-center justify-center"
-            >
-              <motion.div
-                initial={{
-                  scale: 0,
-                  opacity: 0,
-                  boxShadow: "0 0 0px rgba(139, 199, 255, 0)",
-                  background: "radial-gradient(circle, #BEE3FF 0%, #8BC7FF 60%, #004E92 100%)"
-                }}
-                animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.3, 0.6, 0.3],
-                  boxShadow: [
-                    "0 0 10px rgba(139, 199, 255, 0.2)",
-                    "0 0 30px rgba(139, 199, 255, 0.6)",
-                    "0 0 10px rgba(139, 199, 255, 0.2)"
-                  ],
-                  rotate: [0, 5, 0],
-                }}
-                transition={{
-                  delay,
-                  duration: 2.5,
-                  repeat: Infinity,
-                  repeatType: "mirror",
-                  ease: "easeInOut",
-                }}
-                className="absolute rounded-full z-0"
-                style={{ width: size, height: size }}
-              />
-
-              <motion.svg
-                width={size + 60}
-                height={size + 60}
-                className="absolute z-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: delay + 0.1 }}
-              >
-                <defs>
-                  <path
-                    id={`circlePath-${index}`}
-                    d={`
-                      M ${30},${size / 2 + 30} 
-                      a ${radius},${radius} 0 1,1 ${size},0
-                    `}
-                  />
-                </defs>
-                <text
-                  fill="#093D6F"
-                  fontSize="16"
-                  fontWeight="500"
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  alignmentBaseline="middle"
-                >
-                  <textPath href={`#circlePath-${index}`} startOffset="50%">
-                    {text}
-                  </textPath>
-                </text>
-              </motion.svg>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+const colors: Record<RingType, string> = {
+  create: "#AEDAC1",
+  evaluate: "#91C9AE",
+  analyze: "#B1DDCC",
+  apply: "#BBDEC8",
+  understand: "#C5E5D5",
+  remember: "#E9F1EF",
 };
 
-export default BloomCircle;
+const ringList: { type: RingType; label: string; size: number }[] = [
+  { type: "create", label: "Create", size: 400 },
+  { type: "evaluate", label: "Evaluate", size: 340 },
+  { type: "analyze", label: "Analyze", size: 280 },
+  { type: "apply", label: "Apply", size: 220 },
+  { type: "understand", label: "Understand", size: 160 },
+  { type: "remember", label: "Remember", size: 100 },
+];
+
+const circlePathD = (cx: number, cy: number, r: number) =>
+  `M ${cx - r}, ${cy}
+   a ${r},${r} 0 1,1 ${r * 2},0
+   a ${r},${r} 0 1,1 ${-r * 2},0`;
+
+function BloomCircle() {
+  const [activeRing, setActiveRing] = useState<RingType>("evaluate");
+
+  const size = 500;
+  const cx = size / 2;
+  const cy = size / 2;
+
+  const paths = useMemo(() => {
+    const pad = 10;
+    return ringList.reduce<Record<RingType, string>>((acc, ring) => {
+      const r = ring.size / 2 - pad;
+      acc[ring.type] = circlePathD(cx, cy, Math.max(r, 0));
+      return acc;
+    }, {} as Record<RingType, string>);
+  }, [cx, cy]);
+
+  return (
+    <div className="relative w-[500px] h-[500px] rounded-full flex items-center justify-center">
+      {ringList.map((ring) => (
+        <div
+          key={ring.type}
+          className="absolute border-2 border-white rounded-full cursor-pointer transition-colors duration-300 ease-in-out hover:scale-[1.01] transform"
+          style={{
+            width: `${ring.size}px`,
+            height: `${ring.size}px`,
+            backgroundColor:
+              activeRing === ring.type ? colors[ring.type] : "#D7ECE5",
+          }}
+          onClick={() => setActiveRing(ring.type)}
+        />
+      ))}
+      <svg
+        className="absolute inset-0 pointer-events-none pt-3"
+        viewBox={`0 0 ${size} ${size}`}
+        width={size}
+        height={size}
+      >
+        <defs>
+          {ringList.map((ring) => (
+            <path
+              key={`path-${ring.type}`}
+              id={`path-${ring.type}`}
+              d={paths[ring.type]}
+              transform={`rotate(-90 ${cx} ${cy})`}
+            />
+          ))}
+        </defs>
+
+        {ringList.map((ring) => (
+          <text
+            key={`text-${ring.type}`}
+            className="font-poppins text-[12px] fill-black"
+            style={{
+              fontWeight: activeRing === ring.type ? 700 : 500,
+            }}
+          >
+            <textPath
+              href={`#path-${ring.type}`}
+              startOffset="50%"
+              textAnchor="middle"
+              letterSpacing="0.5px"
+            >
+              {ring.label}
+            </textPath>
+          </text>
+        ))}
+      </svg>
+    </div>
+  );
+}
+export default BloomCircle

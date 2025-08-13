@@ -1,6 +1,6 @@
 function page () {
     return (
-      <div>cambridge page</div>
+      <div>cambridge secondary page</div>
     )
   }
   
