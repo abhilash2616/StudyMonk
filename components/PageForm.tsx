@@ -3,9 +3,18 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import SubmitButton from "./ui/AnimatedButton";
 
-function PageForm() {
+// Form data ka type define karte hain
+interface FormData {
+    name: string;
+    email: string;
+    mobile: string;
+    className: string;
+    message: string;
+}
+
+function PageForm(): React.JSX.Element {
     const router = useRouter();
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         name: "",
         email: "",
         mobile: "",
@@ -13,19 +22,22 @@ function PageForm() {
         message: "",
     });
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    // Input / textarea / select ke liye handleChange
+    function handleChange(
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ): void {
         const { id, value } = e.target;
         setFormData((prev) => ({ ...prev, [id]: value }));
     }
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
         setIsSubmitting(true);
 
         try {
-            // Dummy API call (commented out abhi ke liye)
+            // Dummy API call ke jagah console log
             /*
             const response = await fetch("/api/submit-form", {
               method: "POST",
@@ -35,14 +47,12 @@ function PageForm() {
         
             if (!response.ok) throw new Error("Submission failed");
             */
-
-            // Just log formData for now
             console.log("Form submitted data:", formData);
 
-            alert("Form submitted successfully");
+            alert("Form submitted successfully ✅");
             router.push("/thank-you");
 
-            // Reset form fields
+            // Reset form
             setFormData({
                 name: "",
                 email: "",
@@ -57,7 +67,6 @@ function PageForm() {
             setIsSubmitting(false);
         }
     }
-
 
     return (
         <div className="flex items-center justify-center p-4">
@@ -130,6 +139,8 @@ function PageForm() {
                         rows={4}
                         className="w-full px-4 py-3 rounded-lg border border-gray-300"
                     />
+
+                    {/* Submit button with TS prop */}
                     <SubmitButton isSubmitting={isSubmitting} />
                 </form>
             </div>

@@ -6,12 +6,26 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
 import PopUpForm from "@/components/PopUpForm";
 
-const layers = [
+interface Layer {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  delay: number;
+}
+
+const layers: Layer[] = [
   { src: "/assets/sc-4.png", width: 677, height: 677, alt: "sc-4", delay: 0.2 },
   { src: "/assets/sc-5.png", width: 516, height: 516, alt: "sc-5", delay: 0.4 },
 ];
 
-const sageData = [
+interface sageData {
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+const sageData: sageData[] = [
   {
     title: "The Sage",
     subtitle: "Your Expert Guide",
@@ -26,7 +40,12 @@ const sageData = [
   },
 ];
 
-const actionData = [
+interface actionData {
+  title: string;
+  description: string;
+}
+
+const actionData: actionData[] = [
   {
     title: "An Unwavering Focus on Cambridge",
     description:

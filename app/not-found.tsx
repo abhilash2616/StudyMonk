@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Head from "next/head";
 import { motion } from "framer-motion";
 
 const PageNotFound = () => {
@@ -38,11 +37,7 @@ const PageNotFound = () => {
 
   return (
     <>
-      <Head>
-        <title>404 - Page Not Found</title>
-        <meta name="description" content="The page you're looking for doesn't exist" />
-      </Head>
-      
+
       <div className="min-h-[80vh] flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 text-gray-800 p-4">
         <motion.div
           initial="hidden"
@@ -50,7 +45,7 @@ const PageNotFound = () => {
           variants={containerVariants}
           className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center overflow-hidden relative"
         >
-          <motion.div 
+          <motion.div
             className="absolute -top-20 -left-20 w-40 h-40 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"
             animate={{
               x: [0, 20, 0],
@@ -62,7 +57,7 @@ const PageNotFound = () => {
               repeatType: "reverse",
             }}
           />
-          <motion.div 
+          <motion.div
             className="absolute -bottom-20 -right-20 w-40 h-40 bg-indigo-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"
             animate={{
               x: [0, -20, 0],
@@ -75,29 +70,29 @@ const PageNotFound = () => {
               delay: 1
             }}
           />
-          
+
           <div className="relative z-10">
-            <motion.h1 
+            <motion.h1
               variants={itemVariants}
               className="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-2"
             >
               404
             </motion.h1>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={itemVariants}
               className="text-3xl font-semibold mb-4"
             >
               Page Not Found
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               variants={itemVariants}
               className="mb-8 text-gray-600"
             >
               Oops! The page youre looking for doesnt exist or has been moved.
             </motion.p>
-            
+
             <motion.div variants={itemVariants}>
               <Link href="/" passHref>
                 <motion.button

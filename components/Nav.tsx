@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from "react";
+import Link from "next/link";
 
 import {
   NavigationMenu,
@@ -11,9 +11,22 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 
-const links = [
+// Interfaces define karte hain
+interface SubLink {
+  label: string;
+  href: string;
+}
+
+interface NavLink {
+  label: string;
+  href?: string; // optional, kyunki kuch links ke paas subLinks ho sakte hain
+  subLinks?: SubLink[];
+}
+
+// Links array ko type-safe banate hain
+const links: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Our Story", href: "/our-story" },
   {
@@ -32,9 +45,9 @@ const links = [
     ],
   },
   { label: "Plans & Pricing", href: "/plan-and-pricing" },
-]
+];
 
-function Nav() {
+function Nav(): React.JSX.Element {
   return (
     <NavigationMenu viewport={false}>
       <NavigationMenuList>
@@ -65,7 +78,7 @@ function Nav() {
             ) : (
               <NavigationMenuLink asChild>
                 <Link
-                  href={item.href!}
+                  href={item.href!} // "!" ka matlab TypeScript ko batana ki value exist karegi
                   className={`${navigationMenuTriggerStyle()} text-black text-[16px]`}
                 >
                   {item.label}
@@ -76,8 +89,7 @@ function Nav() {
         ))}
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 }
 
-
-export default Nav
+export default Nav;

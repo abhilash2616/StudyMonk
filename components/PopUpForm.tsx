@@ -8,7 +8,6 @@ import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
 
 function ContactForm() {
     const router = useRouter();
-
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -19,9 +18,7 @@ function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-        >
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
     ) => {
         const { id, value } = e.target;
         setFormData((prev) => ({ ...prev, [id]: value }));
@@ -44,19 +41,16 @@ function ContactForm() {
     };
 
     return (
-        <div className="flex flex-row justify-between gap-4">
+        <div className="flex flex-col md:flex-row justify-between gap-4">
             <div className="w-full md:w-1/2 hidden md:block relative overflow-hidden">
-                <div className="absolute inset-0">
-                    <Image
-                        src="/assets/popup.png"
-                        alt="Enrollment Banner"
-                        width={500}
-                        height={700}
-                        className="object-cover pl-6 h-[470px]"
-                    />
-                </div>
-
-                <div className="absolute bottom-0 left-0 w-full bg-[#012042] pt-13 pb-4 px-4 text-white clip-banner2">
+                <Image
+                    src="/assets/popup.png"
+                    alt="Enrollment Banner"
+                    width={500}
+                    height={700}
+                    className="object-cover h-[470px]"
+                />
+                <div className="absolute bottom-0 left-0 w-full bg-[#012042] pt-3 pb-4 px-4 text-white clip-banner2">
                     <h2 className="text-[20px] font-semibold mb-1">
                         Dont Just Study. Conquer It!
                     </h2>
@@ -64,20 +58,19 @@ function ContactForm() {
                         <h3 className="font-semibold text-[15px]">Join Us Today.</h3>
                         <motion.div
                             animate={{ x: [0, 5, 0] }}
-                            transition={{
-                                duration: 1,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                            }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
                         >
-                            <TrendingFlatIcon />
+                            <TrendingFlatIcon fontSize="small" />
                         </motion.div>
                     </div>
                 </div>
             </div>
+
             <div className="w-full md:w-1/2">
-                <form onSubmit={handleSubmit} className="space-y-6 pb-6 pl-6 md:pl-0">
-                    <h2 className="font-{#012041] text-2xl font-bold text-center font-[Gilroy]">Book A FREE Trial Now!</h2>
+                <form onSubmit={handleSubmit} className="space-y-6 pb-6 px-0 md:px-6">
+                    <h2 className="text-[#012041] text-2xl font-bold text-center font-[Gilroy]">
+                        Book A FREE Trial Now!
+                    </h2>
 
                     <input
                         id="name"
@@ -106,14 +99,11 @@ function ContactForm() {
                         <input
                             id="mobile"
                             type="tel"
-                            inputMode="numeric"
-                            onInput={(e) => {
-                                e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "");
-                            }}
+                            pattern="\d*"
+                            maxLength={10}
                             value={formData.mobile}
                             onChange={handleChange}
                             required
-                            maxLength={10}
                             placeholder="Phone Number"
                             className="w-full pl-14 px-4 py-3 rounded-lg border border-gray-300 text-[#001F3F] placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-[#012042] transition-all"
                         />
@@ -126,7 +116,9 @@ function ContactForm() {
                         required
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 text-[#001F3F] focus:outline-none focus:ring-2 focus:ring-[#012042] cursor-pointer"
                     >
-                        <option value="" disabled>Stage</option>
+                        <option value="" disabled>
+                            Stage
+                        </option>
                         <option value="batch-a">Batch A (9AM-11AM)</option>
                         <option value="batch-b">Batch B (11AM-1PM)</option>
                         <option value="batch-c">Batch C (2PM-4PM)</option>
@@ -164,12 +156,12 @@ function ContactForm() {
                                         r="10"
                                         stroke="currentColor"
                                         strokeWidth="4"
-                                    ></circle>
+                                    />
                                     <path
                                         className="opacity-75"
                                         fill="currentColor"
                                         d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                                    ></path>
+                                    />
                                 </svg>
                                 Processing...
                             </>

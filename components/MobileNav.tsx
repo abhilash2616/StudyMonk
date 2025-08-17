@@ -1,18 +1,24 @@
 "use client";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import React, { useEffect, useRef, useState } from "react";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CiMenuFries } from "react-icons/ci";
-import { useEffect, useRef, useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 
-const links = [
+interface SubLink {
+  label: string;
+  href: string;
+}
+
+interface NavLink {
+  label: string;
+  href?: string;
+  subLinks?: SubLink[];
+}
+
+const links: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Our Story", href: "/our-story" },
   {
@@ -33,7 +39,7 @@ const links = [
   { label: "Plans & Pricing", href: "/plan-and-pricing" },
 ];
 
-function MobileNav() {
+function MobileNav(): React.JSX.Element {
   const pathname = usePathname();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -53,7 +59,10 @@ function MobileNav() {
     setOpenDropdown((prev) => (prev === label ? null : label));
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, label: string) => {
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    label: string
+  ) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       toggleDropdown(label);
@@ -130,7 +139,7 @@ function MobileNav() {
             return (
               <Link
                 key={link.href}
-                href={link.href}
+                href={link.href!}
                 className={`px-2 py-1 rounded-md transition-colors capitalize ${
                   isActive
                     ? "text-[#001F3F] underline underline-offset-8 decoration-[1.5px]"
